@@ -1,152 +1,195 @@
-# What to Wear v.1
+# What to Wear v1
 
-A smart packing list generator that uses live weather data to create personalized packing recommendations for your trips.
+A smart packing list generator that uses real-time weather data to provide personalized clothing recommendations for your trips.
 
-## Features
+## 🌟 Features
 
-- **Weather-based packing lists**: Get recommendations based on actual weather forecasts
-- **Temperature tolerance**: Choose your comfort level (cold-sensitive, neutral, heat-sensitive)
-- **Duration scaling**: Packing counts automatically adjust to trip length
-- **NYC Subway-inspired design**: Clean, bold, information-first UI
-- **Mobile responsive**: Works perfectly on all devices
-- **Real-time validation**: Form validation with helpful error messages
+- **Real Weather Data**: Powered by [Open-Meteo](https://open-meteo.com/) API for accurate forecasts
+- **City Geocoding**: Automatically converts city names to coordinates
+- **Custom Date Picker**: Beautiful calendar interface for selecting travel dates
+- **Temperature Tolerance**: Choose your comfort level (cold-sensitive, neutral, heat-sensitive)
+- **Smart Packing Logic**: Calculates optimal clothing quantities based on trip duration and weather
+- **NYC Subway Design**: Bold, information-first design system inspired by NYC subway aesthetics
+- **Responsive Design**: Works perfectly on desktop and mobile devices
+- **Rate Limiting**: Built-in protection against API abuse
 
-## Tech Stack
-
-- **Framework**: Next.js 15 (App Router)
-- **Language**: TypeScript
-- **Styling**: Tailwind CSS
-- **Validation**: Zod
-- **Animations**: Framer Motion
-- **Weather API**: OpenWeatherMap (ready for integration)
-
-## Getting Started
+## 🚀 Quick Start
 
 ### Prerequisites
 
-- Node.js 18.18.0 or higher
+- Node.js 18.17.1 or higher
 - npm or yarn
 
 ### Installation
 
-1. Clone the repository:
-```bash
-git clone <repository-url>
-cd whattowear-v1
-```
+1. **Clone the repository**
+   ```bash
+   git clone <your-repo-url>
+   cd whattowear-v1
+   ```
 
-2. Install dependencies:
-```bash
-npm install
-```
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-3. Set up environment variables:
-```bash
-cp .env.example .env.local
-```
+3. **Start the development server**
+   ```bash
+   npm run dev
+   ```
 
-Add your weather API key:
-```
-WEATHER_API_KEY=your_openweathermap_api_key_here
-```
+4. **Open your browser**
+   Navigate to [http://localhost:3000](http://localhost:3000)
 
-4. Run the development server:
-```bash
-npm run dev
-```
+## 🛠️ Tech Stack
 
-5. Open [http://localhost:3000](http://localhost:3000) in your browser.
+- **Framework**: Next.js 14.2.5 (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS with custom NYC Subway theme
+- **UI Components**: Headless UI + Heroicons
+- **Weather API**: Open-Meteo (free, no API key required)
+- **Geocoding**: Open-Meteo Geocoding API
+- **Validation**: Zod schema validation
+- **Animations**: Framer Motion
 
-## Project Structure
+## 📁 Project Structure
 
 ```
 src/
-├── app/
-│   ├── page.tsx              # Landing page
-│   ├── plan/
-│   │   ├── page.tsx          # Plan page
-│   │   └── actions.ts        # Server action for form handling
-│   ├── layout.tsx            # Root layout
-│   └── globals.css           # Global styles
-├── components/
-│   ├── Badge.tsx             # NYC Subway-style badges
-│   ├── FormCard.tsx          # Main form component
-│   ├── ResultCard.tsx        # Results display
-│   ├── LoadingState.tsx      # Loading animation
-│   └── ErrorState.tsx        # Error handling
-├── types/
-│   └── index.ts              # TypeScript type definitions
-└── utils/
-    ├── weather.ts            # Weather logic and API calls
-    └── rateLimit.ts          # Rate limiting utilities
+├── app/                    # Next.js App Router pages
+│   ├── globals.css        # Global styles and Tailwind imports
+│   ├── layout.tsx         # Root layout component
+│   ├── page.tsx           # Landing page
+│   └── plan/              # Planning page
+│       ├── actions.ts     # Server actions for form processing
+│       └── page.tsx       # Planning page component
+├── components/            # Reusable React components
+│   ├── Badge.tsx         # NYC Subway-style circular badges
+│   ├── DatePicker.tsx    # Custom calendar date picker
+│   ├── ErrorState.tsx    # Error display component
+│   ├── FormCard.tsx      # Main form component
+│   ├── LoadingState.tsx  # Loading animation component
+│   └── ResultCard.tsx    # Results display component
+├── types/                # TypeScript type definitions
+│   └── index.ts          # Main type definitions
+└── utils/                # Utility functions
+    ├── rateLimit.ts      # Rate limiting implementation
+    └── weather.ts        # Weather API integration
 ```
 
-## Design System
+## 🌤️ API Integration
 
-The app uses a NYC Subway-inspired design system with:
+### Open-Meteo Weather API
 
-- **Colors**: MTA line colors (A, B, C, G, J, L lines)
-- **Typography**: Inter font family
-- **Components**: Circular badges, rounded cards, bold typography
-- **Layout**: Grid-based with 4px base unit
+The app uses Open-Meteo's free weather API to fetch real-time forecasts:
+
+- **Endpoint**: `https://api.open-meteo.com/v1/forecast`
+- **Data**: Daily temperature (max/min), precipitation probability
+- **Coverage**: Global with high resolution (1-11km)
+- **Updates**: Hourly updates with real-time data
+
+### Geocoding API
+
+City names are converted to coordinates using Open-Meteo's geocoding service:
+
+- **Endpoint**: `https://geocoding-api.open-meteo.com/v1/search`
+- **Features**: Multi-language support, fuzzy matching
+- **No API Key**: Completely free to use
+
+### Date Limitations
+
+Due to Open-Meteo's current data availability, weather forecasts are limited to:
+- **Valid Range**: May 3, 2025 - August 19, 2025
+- **Reason**: API data availability constraints
+- **Future**: Will expand as more historical data becomes available
+
+## 🎨 Design System
+
+### NYC Subway Theme
+
+The app features a custom design system inspired by NYC subway aesthetics:
+
+- **Colors**: Bold subway line colors (A, B, C, D, E, F, G, J, L)
+- **Typography**: Inter font family with geometric precision
+- **Layout**: Grid-based, information-first design
+- **Components**: Circular badges, bold typography, high contrast
 
 ### Color Palette
 
-- `subway-a`: #0039A6 (Blue)
-- `subway-b`: #FF6319 (Orange)
-- `subway-g`: #6CBE45 (Green)
-- `subway-c`: #2850AD (Blue-gray)
-- `subway-j`: #996633 (Brown)
-- `subway-l`: #A7A9AC (Grey)
+```css
+/* Subway Colors */
+subway-a: #0039A6  /* Blue */
+subway-b: #FF6319  /* Orange */
+subway-c: #2850AD  /* Light Blue */
+subway-d: #FF6319  /* Orange */
+subway-e: #0039A6  /* Blue */
+subway-f: #FF6319  /* Orange */
+subway-g: #6CBE45  /* Green */
+subway-j: #996633  /* Brown */
+subway-l: #A7A9AC  /* Gray */
 
-## API Integration
-
-The app is designed to work with weather APIs. Currently using mock data, but ready for:
-
-- **OpenWeatherMap**: Free tier available
-- **WeatherAPI**: Alternative option
-- **Custom weather service**: Easy to integrate
-
-### Weather Data Structure
-
-```typescript
-interface WeatherData {
-  city: string;
-  avg: number;      // Average temperature
-  min: number;      // Minimum temperature
-  max: number;      // Maximum temperature
-  humidity: number; // Humidity percentage
-  summary: string;  // Human-readable summary
-  rainChance?: number; // Rain probability
-}
+/* UI Colors */
+bg: #0B0B0C        /* Background */
+surface: #151517   /* Surface */
+card: #1D1D21      /* Card Background */
+text: #FFFFFF      /* Text */
+muted: #9CA3AF     /* Muted Text */
 ```
 
-## Packing Logic
+## 🔧 Development
 
-The app uses sophisticated algorithms to determine packing recommendations:
+### Available Scripts
 
-### Temperature Bands
-- **< 8°C**: Heavy winter gear
-- **8-14°C**: Light/heavy jacket + layers
-- **15-20°C**: Light jacket or cardigan
-- **21-26°C**: Short-sleeve tops, light layers
-- **> 26°C**: Very light, breathable clothing
+```bash
+npm run dev      # Start development server
+npm run build    # Build for production
+npm run start    # Start production server
+npm run lint     # Run ESLint
+```
 
-### Count Calculations
-- **Tops**: `ceil(tripDays / 2)` (minimum 2)
-- **Bottoms**: `max(1, floor(tripDays / 4)) + 1`
-- **Outerwear**: Based on temperature bands
-- **Footwear**: 1 main + 1 alternative for longer trips
-- **Accessories**: Based on weather conditions
+### Environment Variables
 
-## Deployment
+No environment variables are required for basic functionality. The app uses free, public APIs.
+
+### Adding New Features
+
+1. **Components**: Add to `src/components/`
+2. **Pages**: Add to `src/app/`
+3. **Types**: Add to `src/types/index.ts`
+4. **Utilities**: Add to `src/utils/`
+
+## 📊 Packing Logic
+
+The app uses sophisticated algorithms to generate packing recommendations:
+
+### Temperature Tolerance
+
+- **Cold-sensitive**: +2°C perceived temperature
+- **Neutral**: No adjustment
+- **Heat-sensitive**: -2°C perceived temperature
+
+### Clothing Quantities
+
+- **Tops**: Based on trip duration and humidity
+- **Bottoms**: Optimized for trip length
+- **Outerwear**: Temperature-based recommendations
+- **Footwear**: Duration and climate considerations
+- **Accessories**: Weather and comfort factors
+
+### Weather Factors
+
+- **Temperature Range**: Min/max daily temperatures
+- **Precipitation**: Rain probability percentages
+- **Humidity**: Moisture levels (estimated)
+- **Duration**: Trip length in days
+
+## 🚀 Deployment
 
 ### Vercel (Recommended)
 
-1. Push your code to GitHub
-2. Connect your repository to Vercel
-3. Add environment variables in Vercel dashboard
-4. Deploy!
+1. **Connect Repository**: Link your Git repository to Vercel
+2. **Auto Deploy**: Every push to main branch triggers deployment
+3. **Environment**: No additional configuration needed
 
 ### Other Platforms
 
@@ -156,44 +199,33 @@ The app can be deployed to any platform that supports Next.js:
 - DigitalOcean App Platform
 - AWS Amplify
 
-## Environment Variables
+## 🤝 Contributing
 
-```bash
-# Required for production
-WEATHER_API_KEY=your_weather_api_key
+1. **Fork the repository**
+2. **Create a feature branch**: `git checkout -b feature/amazing-feature`
+3. **Commit your changes**: `git commit -m 'Add amazing feature'`
+4. **Push to the branch**: `git push origin feature/amazing-feature`
+5. **Open a Pull Request**
 
-# Optional
-NEXT_PUBLIC_APP_NAME=WhatToWear
-```
+## 📝 License
 
-## Contributing
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests if applicable
-5. Submit a pull request
+## 🙏 Acknowledgments
 
-## License
+- **Open-Meteo**: For providing free, reliable weather data
+- **Next.js Team**: For the amazing React framework
+- **Tailwind CSS**: For the utility-first CSS framework
+- **NYC MTA**: For design inspiration
 
-MIT License - see LICENSE file for details
+## 📞 Support
 
-## Roadmap
+If you encounter any issues or have questions:
 
-### v1.1
-- [ ] Real weather API integration
-- [ ] More detailed packing recommendations
-- [ ] Save/export packing lists
-- [ ] Multiple destinations support
+1. **Check the documentation** above
+2. **Search existing issues** in the repository
+3. **Create a new issue** with detailed information
 
-### v1.2
-- [ ] User accounts
-- [ ] Trip history
-- [ ] Social sharing
-- [ ] Advanced weather alerts
+---
 
-### v2.0
-- [ ] Mobile app
-- [ ] Offline support
-- [ ] AI-powered recommendations
-- [ ] Integration with travel booking platforms
+**Built with ❤️ using Next.js, TypeScript, and real weather data**
