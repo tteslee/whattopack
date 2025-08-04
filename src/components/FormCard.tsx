@@ -167,7 +167,7 @@ export default function FormCard() {
           type="submit"
           className="group w-full inline-flex items-center justify-center gap-2 rounded-full bg-subway-a px-5 py-3 font-semibold text-white hover:opacity-90 transition-opacity"
         >
-          Plan your packing 
+          Get your packing list
           <span className="text-2xl leading-none">→</span>
         </button>
       </form>
