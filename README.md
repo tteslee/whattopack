@@ -1,36 +1,199 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# What to Wear v.1
+
+A smart packing list generator that uses live weather data to create personalized packing recommendations for your trips.
+
+## Features
+
+- **Weather-based packing lists**: Get recommendations based on actual weather forecasts
+- **Temperature tolerance**: Choose your comfort level (cold-sensitive, neutral, heat-sensitive)
+- **Duration scaling**: Packing counts automatically adjust to trip length
+- **NYC Subway-inspired design**: Clean, bold, information-first UI
+- **Mobile responsive**: Works perfectly on all devices
+- **Real-time validation**: Form validation with helpful error messages
+
+## Tech Stack
+
+- **Framework**: Next.js 15 (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **Validation**: Zod
+- **Animations**: Framer Motion
+- **Weather API**: OpenWeatherMap (ready for integration)
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
+- Node.js 18.18.0 or higher
+- npm or yarn
+
+### Installation
+
+1. Clone the repository:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone <repository-url>
+cd whattowear-v1
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install dependencies:
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Set up environment variables:
+```bash
+cp .env.example .env.local
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Add your weather API key:
+```
+WEATHER_API_KEY=your_openweathermap_api_key_here
+```
 
-## Learn More
+4. Run the development server:
+```bash
+npm run dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+5. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Project Structure
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+src/
+├── app/
+│   ├── page.tsx              # Landing page
+│   ├── plan/
+│   │   ├── page.tsx          # Plan page
+│   │   └── actions.ts        # Server action for form handling
+│   ├── layout.tsx            # Root layout
+│   └── globals.css           # Global styles
+├── components/
+│   ├── Badge.tsx             # NYC Subway-style badges
+│   ├── FormCard.tsx          # Main form component
+│   ├── ResultCard.tsx        # Results display
+│   ├── LoadingState.tsx      # Loading animation
+│   └── ErrorState.tsx        # Error handling
+├── types/
+│   └── index.ts              # TypeScript type definitions
+└── utils/
+    ├── weather.ts            # Weather logic and API calls
+    └── rateLimit.ts          # Rate limiting utilities
+```
 
-## Deploy on Vercel
+## Design System
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The app uses a NYC Subway-inspired design system with:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Colors**: MTA line colors (A, B, C, G, J, L lines)
+- **Typography**: Inter font family
+- **Components**: Circular badges, rounded cards, bold typography
+- **Layout**: Grid-based with 4px base unit
+
+### Color Palette
+
+- `subway-a`: #0039A6 (Blue)
+- `subway-b`: #FF6319 (Orange)
+- `subway-g`: #6CBE45 (Green)
+- `subway-c`: #2850AD (Blue-gray)
+- `subway-j`: #996633 (Brown)
+- `subway-l`: #A7A9AC (Grey)
+
+## API Integration
+
+The app is designed to work with weather APIs. Currently using mock data, but ready for:
+
+- **OpenWeatherMap**: Free tier available
+- **WeatherAPI**: Alternative option
+- **Custom weather service**: Easy to integrate
+
+### Weather Data Structure
+
+```typescript
+interface WeatherData {
+  city: string;
+  avg: number;      // Average temperature
+  min: number;      // Minimum temperature
+  max: number;      // Maximum temperature
+  humidity: number; // Humidity percentage
+  summary: string;  // Human-readable summary
+  rainChance?: number; // Rain probability
+}
+```
+
+## Packing Logic
+
+The app uses sophisticated algorithms to determine packing recommendations:
+
+### Temperature Bands
+- **< 8°C**: Heavy winter gear
+- **8-14°C**: Light/heavy jacket + layers
+- **15-20°C**: Light jacket or cardigan
+- **21-26°C**: Short-sleeve tops, light layers
+- **> 26°C**: Very light, breathable clothing
+
+### Count Calculations
+- **Tops**: `ceil(tripDays / 2)` (minimum 2)
+- **Bottoms**: `max(1, floor(tripDays / 4)) + 1`
+- **Outerwear**: Based on temperature bands
+- **Footwear**: 1 main + 1 alternative for longer trips
+- **Accessories**: Based on weather conditions
+
+## Deployment
+
+### Vercel (Recommended)
+
+1. Push your code to GitHub
+2. Connect your repository to Vercel
+3. Add environment variables in Vercel dashboard
+4. Deploy!
+
+### Other Platforms
+
+The app can be deployed to any platform that supports Next.js:
+- Netlify
+- Railway
+- DigitalOcean App Platform
+- AWS Amplify
+
+## Environment Variables
+
+```bash
+# Required for production
+WEATHER_API_KEY=your_weather_api_key
+
+# Optional
+NEXT_PUBLIC_APP_NAME=WhatToWear
+```
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests if applicable
+5. Submit a pull request
+
+## License
+
+MIT License - see LICENSE file for details
+
+## Roadmap
+
+### v1.1
+- [ ] Real weather API integration
+- [ ] More detailed packing recommendations
+- [ ] Save/export packing lists
+- [ ] Multiple destinations support
+
+### v1.2
+- [ ] User accounts
+- [ ] Trip history
+- [ ] Social sharing
+- [ ] Advanced weather alerts
+
+### v2.0
+- [ ] Mobile app
+- [ ] Offline support
+- [ ] AI-powered recommendations
+- [ ] Integration with travel booking platforms
