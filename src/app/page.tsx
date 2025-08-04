@@ -17,7 +17,7 @@ export default function Home() {
           </div>
           
           <h1 className="text-display font-extrabold text-subway-text mb-6">
-            What to Wear
+            What to Pack
           </h1>
           
           <p className="text-body text-subway-muted mb-8 max-w-lg mx-auto">
@@ -29,7 +29,7 @@ export default function Home() {
             href="/plan"
             className="group inline-flex items-center gap-2 rounded-full bg-subway-a px-8 py-4 font-semibold text-white hover:opacity-90 transition-opacity text-lg"
           >
-            Plan your packing 
+            Plan your trip
             <span className="text-2xl leading-none">→</span>
           </Link>
         </div>
@@ -38,7 +38,7 @@ export default function Home() {
       {/* Footer */}
               <footer className="py-8 px-4 text-center">
           <p className="text-caption text-subway-muted">
-            Powered by Open-Meteo weather data • NYC Subway-inspired design
+            Powered by <a href="https://open-meteo.com" target="_blank" rel="noopener noreferrer" className="text-subway-a hover:underline">Open-Meteo</a> weather data
           </p>
         </footer>
     </main>

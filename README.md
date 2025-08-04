@@ -229,4 +229,3 @@ If you encounter any issues or have questions:
 ---
 
 **Built with ❤️ using Next.js, TypeScript, and real weather data**
-# Updated by tteslee

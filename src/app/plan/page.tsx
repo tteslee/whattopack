@@ -19,8 +19,8 @@ export default function PlanPage() {
       
       {/* Footer */}
               <footer className="py-8 px-4 text-center">
-          <p className="text-caption text-subway-muted">
-            Powered by Open-Meteo weather data • NYC Subway-inspired design
+              <p className="text-caption text-subway-muted">
+            Powered by <a href="https://open-meteo.com" target="_blank" rel="noopener noreferrer" className="text-subway-a hover:underline">Open-Meteo</a> weather data
           </p>
         </footer>
     </main>
