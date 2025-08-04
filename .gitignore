@@ -109,3 +109,47 @@ node_modules/
 
 # TernJS port file
 .tern-port
+
+# Additional development files
+*.tmp
+*.temp
+.cache/
+.temp/
+
+# Backup files
+*.bak
+*.backup
+*~
+
+# Local development
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Linux
+*~
+
+# Temporary files
+*.tmp
+*.temp
