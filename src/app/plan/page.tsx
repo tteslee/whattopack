@@ -7,7 +7,7 @@ export default function PlanPage() {
       <header className="py-8 px-4">
         <div className="max-w-md mx-auto">
           <h1 className="text-h1 font-bold text-subway-text text-center">
-            Packing Planner
+            What to Pack
           </h1>
         </div>
       </header>

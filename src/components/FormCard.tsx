@@ -61,7 +61,7 @@ export default function FormCard() {
   return (
     <div className="rounded-2xl bg-subway-card p-6 shadow-xl max-w-md mx-auto">
       <h2 className="text-h2 font-semibold text-subway-text mb-6">
-        Plan Your Packing
+        Plan Your Trip
       </h2>
       
       <form onSubmit={(e) => {
