@@ -1,17 +1,12 @@
-# What to Wear v1
+# What to Pack v1
 
 A smart packing list generator that uses real-time weather data to provide personalized clothing recommendations for your trips.
 
 ## 🌟 Features
 
 - **Real Weather Data**: Powered by [Open-Meteo](https://open-meteo.com/) API for accurate forecasts
-- **City Geocoding**: Automatically converts city names to coordinates
-- **Custom Date Picker**: Beautiful calendar interface for selecting travel dates
 - **Temperature Tolerance**: Choose your comfort level (cold-sensitive, neutral, heat-sensitive)
 - **Smart Packing Logic**: Calculates optimal clothing quantities based on trip duration and weather
-- **NYC Subway Design**: Bold, information-first design system inspired by NYC subway aesthetics
-- **Responsive Design**: Works perfectly on desktop and mobile devices
-- **Rate Limiting**: Built-in protection against API abuse
 
 ## 🚀 Quick Start
 
@@ -94,7 +89,6 @@ City names are converted to coordinates using Open-Meteo's geocoding service:
 
 - **Endpoint**: `https://geocoding-api.open-meteo.com/v1/search`
 - **Features**: Multi-language support, fuzzy matching
-- **No API Key**: Completely free to use
 
 ### Date Limitations
 
@@ -102,39 +96,6 @@ Due to Open-Meteo's current data availability, weather forecasts are limited to:
 - **Valid Range**: May 3, 2025 - August 19, 2025
 - **Reason**: API data availability constraints
 - **Future**: Will expand as more historical data becomes available
-
-## 🎨 Design System
-
-### NYC Subway Theme
-
-The app features a custom design system inspired by NYC subway aesthetics:
-
-- **Colors**: Bold subway line colors (A, B, C, D, E, F, G, J, L)
-- **Typography**: Inter font family with geometric precision
-- **Layout**: Grid-based, information-first design
-- **Components**: Circular badges, bold typography, high contrast
-
-### Color Palette
-
-```css
-/* Subway Colors */
-subway-a: #0039A6  /* Blue */
-subway-b: #FF6319  /* Orange */
-subway-c: #2850AD  /* Light Blue */
-subway-d: #FF6319  /* Orange */
-subway-e: #0039A6  /* Blue */
-subway-f: #FF6319  /* Orange */
-subway-g: #6CBE45  /* Green */
-subway-j: #996633  /* Brown */
-subway-l: #A7A9AC  /* Gray */
-
-/* UI Colors */
-bg: #0B0B0C        /* Background */
-surface: #151517   /* Surface */
-card: #1D1D21      /* Card Background */
-text: #FFFFFF      /* Text */
-muted: #9CA3AF     /* Muted Text */
-```
 
 ## 🔧 Development
 
@@ -191,14 +152,6 @@ The app uses sophisticated algorithms to generate packing recommendations:
 2. **Auto Deploy**: Every push to main branch triggers deployment
 3. **Environment**: No additional configuration needed
 
-### Other Platforms
-
-The app can be deployed to any platform that supports Next.js:
-- Netlify
-- Railway
-- DigitalOcean App Platform
-- AWS Amplify
-
 ## 🤝 Contributing
 
 1. **Fork the repository**
@@ -228,4 +181,4 @@ If you encounter any issues or have questions:
 
 ---
 
-**Built with ❤️ using Next.js, TypeScript, and real weather data**
+**Built with ❤️ using Next.js, TypeScript, and real-time weather data**
