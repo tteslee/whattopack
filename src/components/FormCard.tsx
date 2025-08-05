@@ -59,8 +59,8 @@ export default function FormCard() {
   }
 
   return (
-    <div className="rounded-2xl bg-subway-card dark:bg-subway-card bg-subway-card-light dark:bg-subway-card p-6 shadow-xl max-w-md mx-auto">
-      <h2 className="text-h2 font-semibold text-subway-text dark:text-subway-text text-subway-text-light dark:text-subway-text mb-6">
+    <div className="rounded-2xl bg-subway-card-light dark:bg-subway-card p-6 shadow-xl max-w-md mx-auto">
+      <h2 className="text-h2 font-semibold text-subway-text-light dark:text-subway-text mb-6">
         Plan Your Trip
       </h2>
       
@@ -70,7 +70,7 @@ export default function FormCard() {
       }} className="space-y-6">
         {/* Destination */}
         <div>
-          <label htmlFor="destination" className="block text-sm font-medium text-subway-text dark:text-subway-text text-subway-text-light dark:text-subway-text mb-2">
+          <label htmlFor="destination" className="block text-sm font-medium text-subway-text-light dark:text-subway-text mb-2">
             Destination
           </label>
           <input
@@ -78,7 +78,7 @@ export default function FormCard() {
             id="destination"
             name="destination"
             placeholder="e.g., New York, Paris"
-            className="w-full px-4 py-3 rounded-lg bg-subway-surface dark:bg-subway-surface bg-subway-surface-light dark:bg-subway-surface border border-subway-muted dark:border-subway-muted border-subway-muted-light dark:border-subway-muted text-subway-text dark:text-subway-text text-subway-text-light dark:text-subway-text placeholder-subway-muted dark:placeholder-subway-muted placeholder-subway-muted-light dark:placeholder-subway-muted focus:border-subway-a focus:outline-none transition-colors"
+            className="w-full px-4 py-3 rounded-lg bg-subway-surface-light dark:bg-subway-surface border border-subway-muted-light dark:border-subway-muted text-subway-text-light dark:text-subway-text placeholder-subway-muted-light dark:placeholder-subway-muted focus:border-subway-a focus:outline-none transition-colors"
             required
           />
         </div>
@@ -107,13 +107,13 @@ export default function FormCard() {
           />
         </div>
         
-        <p className="text-xs text-subway-muted dark:text-subway-muted text-subway-muted-light dark:text-subway-muted text-center">
+        <p className="text-xs text-subway-muted-light dark:text-subway-muted text-center">
           Weather data available for dates between May 3 - August 19, 2025
         </p>
 
         {/* Temperature Tolerance */}
         <div>
-          <label className="block text-sm font-medium text-subway-text dark:text-subway-text text-subway-text-light dark:text-subway-text mb-3">
+                      <label className="block text-sm font-medium text-subway-text-light dark:text-subway-text mb-3">
             Temperature Tolerance
           </label>
           <div className="space-y-2">
@@ -135,7 +135,7 @@ export default function FormCard() {
                 <div className={`flex items-center space-x-3 p-3 rounded-lg border transition-colors cursor-pointer ${
                   selectedTolerance === option.value 
                     ? 'border-subway-a bg-subway-a/10' 
-                    : 'border-subway-muted dark:border-subway-muted border-subway-muted-light dark:border-subway-muted hover:border-subway-a'
+                    : 'border-subway-muted-light dark:border-subway-muted hover:border-subway-a'
                 }`}>
                   <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-colors ${
                     selectedTolerance === option.value 
@@ -155,7 +155,7 @@ export default function FormCard() {
                   }`}>
                     {option.badge}
                   </span>
-                  <span className="text-subway-text dark:text-subway-text text-subway-text-light dark:text-subway-text font-medium">{option.label}</span>
+                  <span className="text-subway-text-light dark:text-subway-text font-medium">{option.label}</span>
                 </div>
               </label>
             ))}

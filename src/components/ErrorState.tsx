@@ -5,18 +5,18 @@ interface ErrorStateProps {
 
 export default function ErrorState({ error, onRetry }: ErrorStateProps) {
   return (
-    <div className="rounded-2xl bg-subway-card p-6 shadow-xl max-w-md mx-auto">
+    <div className="rounded-2xl bg-subway-card-light dark:bg-subway-card p-6 shadow-xl max-w-md mx-auto">
       <div className="flex flex-col items-center justify-center py-8">
         {/* Error icon */}
         <div className="w-16 h-16 bg-subway-b rounded-full flex items-center justify-center mb-4">
           <span className="text-white text-2xl font-bold">!</span>
         </div>
         
-        <h3 className="text-h2 font-semibold text-subway-text mb-2">
+        <h3 className="text-h2 font-semibold text-subway-text-light dark:text-subway-text mb-2">
           Oops!
         </h3>
         
-        <p className="text-subway-muted text-center mb-6">
+        <p className="text-subway-muted-light dark:text-subway-muted text-center mb-6">
           {error}
         </p>
         

@@ -11,20 +11,28 @@ interface ThemeContextType {
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
-export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setTheme] = useState<Theme>('dark');
-
-  useEffect(() => {
-    // Check for saved theme preference or default to dark
+// Get initial theme from localStorage synchronously to prevent flash
+const getInitialTheme = (): Theme => {
+  if (typeof window !== 'undefined') {
     const savedTheme = localStorage.getItem('theme') as Theme;
     if (savedTheme) {
-      setTheme(savedTheme);
+      return savedTheme;
     }
-  }, []);
+  }
+  return 'dark';
+};
+
+export function ThemeProvider({ children }: { children: ReactNode }) {
+  const [theme, setTheme] = useState<Theme>(getInitialTheme);
 
   useEffect(() => {
     // Update document class and save to localStorage
-    document.documentElement.classList.toggle('light', theme === 'light');
+    // For Tailwind dark mode: add 'dark' class for dark theme, remove for light theme
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
     localStorage.setItem('theme', theme);
   }, [theme]);
 
