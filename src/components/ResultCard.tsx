@@ -63,6 +63,9 @@ export default function ResultCard({ plan, onReset }: ResultCardProps) {
             {packing.tops.longSleeve > 0 && (
               <div className="text-sm text-subway-muted">• {packing.tops.longSleeve} long sleeve</div>
             )}
+            {packing.tops.note && (
+              <div className="text-xs text-subway-a italic mt-2">💡 {packing.tops.note}</div>
+            )}
           </div>
         </div>
 
@@ -79,6 +82,9 @@ export default function ResultCard({ plan, onReset }: ResultCardProps) {
             )}
             {packing.bottoms.pants > 0 && (
               <div className="text-sm text-subway-muted">• {packing.bottoms.pants} pants</div>
+            )}
+            {packing.bottoms.note && (
+              <div className="text-xs text-subway-a italic mt-2">💡 {packing.bottoms.note}</div>
             )}
           </div>
         </div>

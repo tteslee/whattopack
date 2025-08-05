@@ -19,12 +19,14 @@ export interface TopsRecommendation {
   shortSleeve: number;
   longSleeve: number;
   total: number;
+  note?: string;
 }
 
 export interface BottomsRecommendation {
   shorts: number;
   pants: number;
   total: number;
+  note?: string;
 }
 
 export interface PackingList {
