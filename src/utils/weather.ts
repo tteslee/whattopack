@@ -182,7 +182,13 @@ export function calculatePackingList(
   // Weather adjustments for tops
   if (perceivedAvg >= 24) {
     // Hot weather - need extra tops due to sweating
-    baseTops += tripDays;
+    if (tripDays <= 3) {
+      baseTops += 1; // Add 1 extra for short trips
+    } else if (tripDays <= 7) {
+      baseTops += 2; // Add 2 extra for medium trips
+    } else {
+      baseTops += 3; // Add 3 extra for long trips
+    }
     topsNote = 'Extra tops recommended due to hot weather and sweating.';
   } else if (perceivedAvg <= 5) {
     // Cold weather - need extra tops for layering
@@ -198,7 +204,7 @@ export function calculatePackingList(
   }
   
   // Cap at reasonable maximum
-  const totalTops = Math.min(baseTops, 10);
+  const totalTops = Math.min(baseTops, 8);
   
   // Calculate tops breakdown based on temperature
   let shortSleeve = 0;
