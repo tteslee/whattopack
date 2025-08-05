@@ -9,6 +9,12 @@ interface ResultCardProps {
   onReset: () => void;
 }
 
+// Helper function to handle pluralization
+const pluralize = (count: number, singular: string, plural?: string) => {
+  const pluralForm = plural || singular + 's';
+  return count === 1 ? singular : pluralForm;
+};
+
 export default function ResultCard({ plan, onReset }: ResultCardProps) {
   const { weather, packing, notes } = plan;
 
@@ -58,10 +64,10 @@ export default function ResultCard({ plan, onReset }: ResultCardProps) {
           </div>
           <div className="ml-10 space-y-1">
             {packing.tops.shortSleeve > 0 && (
-              <div className="text-sm text-subway-muted">• {packing.tops.shortSleeve} short sleeve</div>
+              <div className="text-sm text-subway-muted">• {packing.tops.shortSleeve} {pluralize(packing.tops.shortSleeve, 'short sleeve')}</div>
             )}
             {packing.tops.longSleeve > 0 && (
-              <div className="text-sm text-subway-muted">• {packing.tops.longSleeve} long sleeve</div>
+              <div className="text-sm text-subway-muted">• {packing.tops.longSleeve} {pluralize(packing.tops.longSleeve, 'long sleeve')}</div>
             )}
             {packing.tops.note && (
               <div className="text-xs text-subway-muted italic mt-2">💡 {packing.tops.note}</div>
