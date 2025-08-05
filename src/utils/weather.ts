@@ -1,4 +1,4 @@
-import { WeatherData, PackingList, TemperatureTolerance, PackingPlan } from '@/types';
+import { WeatherData, PackingList, PackingItem, TemperatureTolerance, PackingPlan } from '@/types';
 
 interface GeocodingResult {
   id: number;
@@ -174,34 +174,66 @@ export function calculatePackingList(
   const perceivedAvg = getPerceivedTemp(weather.avg);
   const perceivedMin = getPerceivedTemp(weather.min);
   
-  // Calculate base counts
-  let tops = Math.ceil(tripDays / 2);
-  if (tops < 2) tops = 2;
+  // Calculate detailed tops recommendations
+  const totalTops = Math.ceil(tripDays / 2);
+  let shortSleeve = 0;
+  let longSleeve = 0;
+  
+  if (perceivedAvg >= 20) {
+    // Warm weather - mostly short sleeve
+    shortSleeve = Math.ceil(totalTops * 0.8);
+    longSleeve = Math.max(1, totalTops - shortSleeve);
+  } else if (perceivedAvg >= 15) {
+    // Mild weather - mix of both
+    shortSleeve = Math.ceil(totalTops * 0.6);
+    longSleeve = totalTops - shortSleeve;
+  } else {
+    // Cool weather - mostly long sleeve
+    longSleeve = Math.ceil(totalTops * 0.8);
+    shortSleeve = Math.max(1, totalTops - longSleeve);
+  }
   
   // Add extra top for high humidity
   if (weather.humidity > 70 && perceivedAvg >= 24) {
-    tops += Math.ceil(tripDays / 4);
+    shortSleeve += Math.ceil(tripDays / 4);
   }
   
-  let bottoms = Math.max(1, Math.floor(tripDays / 4)) + 1;
+  // Calculate detailed bottoms recommendations
+  const totalBottoms = Math.max(1, Math.floor(tripDays / 4)) + 1;
+  let shorts = 0;
+  let pants = 0;
   
-  // Determine outerwear based on temperature
-  let outerwear: string[] = [];
+  if (perceivedAvg >= 22) {
+    // Warm weather - mostly shorts
+    shorts = Math.ceil(totalBottoms * 0.7);
+    pants = Math.max(1, totalBottoms - shorts);
+  } else if (perceivedAvg >= 15) {
+    // Mild weather - mix of both
+    shorts = Math.ceil(totalBottoms * 0.4);
+    pants = totalBottoms - shorts;
+  } else {
+    // Cool weather - mostly pants
+    pants = Math.ceil(totalBottoms * 0.8);
+    shorts = Math.max(1, totalBottoms - pants);
+  }
+  
+  // Determine outerwear with quantities
+  let outerwear: PackingItem[] = [];
   if (perceivedAvg < 8) {
-    outerwear.push('heavy coat');
-    if (perceivedMin < 5) outerwear.push('thermals');
+    outerwear.push({ name: 'heavy coat', count: 1 });
+    if (perceivedMin < 5) outerwear.push({ name: 'thermals', count: Math.max(1, Math.ceil(tripDays / 3)) });
   } else if (perceivedAvg < 14) {
-    outerwear.push('light/heavy jacket');
+    outerwear.push({ name: 'light/heavy jacket', count: 1 });
   } else if (perceivedAvg < 20) {
-    outerwear.push('light jacket');
+    outerwear.push({ name: 'light jacket', count: 1 });
   } else if (perceivedAvg < 26) {
-    if (perceivedMin < 18) outerwear.push('light cardigan');
+    if (perceivedMin < 18) outerwear.push({ name: 'light cardigan', count: 1 });
   }
   
-  // Determine footwear
-  let footwear: string[] = ['sneakers'];
+  // Determine footwear with quantities
+  let footwear: PackingItem[] = [{ name: 'sneakers', count: 1 }];
   if (tripDays > 4 || perceivedAvg >= 24) {
-    footwear.push('sandals');
+    footwear.push({ name: 'sandals', count: 1 });
   }
   
   // Determine accessories
@@ -215,8 +247,16 @@ export function calculatePackingList(
   }
   
   return {
-    tops,
-    bottoms,
+    tops: {
+      shortSleeve,
+      longSleeve,
+      total: shortSleeve + longSleeve
+    },
+    bottoms: {
+      shorts,
+      pants,
+      total: shorts + pants
+    },
     outerwear,
     footwear,
     accessories

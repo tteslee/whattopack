@@ -15,11 +15,23 @@ export interface PackingItem {
   count: number;
 }
 
+export interface TopsRecommendation {
+  shortSleeve: number;
+  longSleeve: number;
+  total: number;
+}
+
+export interface BottomsRecommendation {
+  shorts: number;
+  pants: number;
+  total: number;
+}
+
 export interface PackingList {
-  tops: number;
-  bottoms: number;
-  outerwear: string[];
-  footwear: string[];
+  tops: TopsRecommendation;
+  bottoms: BottomsRecommendation;
+  outerwear: PackingItem[];
+  footwear: PackingItem[];
   accessories: string[];
 }
 
