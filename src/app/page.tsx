@@ -1,8 +1,11 @@
 import Link from 'next/link';
+import ThemeToggle from '@/components/ThemeToggle';
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-subway-bg flex flex-col">
+    <main className="min-h-screen bg-subway-bg dark:bg-subway-bg bg-subway-bg-light dark:bg-subway-bg flex flex-col">
+      <ThemeToggle />
+      
       {/* Hero Section */}
       <div className="flex-1 flex items-center justify-center px-4">
         <div className="text-center max-w-2xl mx-auto">
@@ -16,11 +19,11 @@ export default function Home() {
             </div>
           </div>
           
-          <h1 className="text-display font-extrabold text-subway-text mb-6">
+          <h1 className="text-display font-extrabold text-subway-text dark:text-subway-text text-subway-text-light dark:text-subway-text mb-6">
             What to Pack
           </h1>
           
-          <p className="text-body text-subway-muted mb-8 max-w-lg mx-auto">
+          <p className="text-body text-subway-muted dark:text-subway-muted text-subway-muted-light dark:text-subway-muted mb-8 max-w-lg mx-auto">
             Get a personalized packing list based on live weather data for your destination. 
             No more overpacking or underpacking—just the right clothes for your trip.
           </p>
@@ -36,11 +39,11 @@ export default function Home() {
       </div>
       
       {/* Footer */}
-              <footer className="py-8 px-4 text-center">
-          <p className="text-caption text-subway-muted">
-            Powered by <a href="https://open-meteo.com" target="_blank" rel="noopener noreferrer" className="text-subway-a hover:underline">Open-Meteo</a> weather data
-          </p>
-        </footer>
+      <footer className="py-8 px-4 text-center">
+        <p className="text-caption text-subway-muted dark:text-subway-muted text-subway-muted-light dark:text-subway-muted">
+          Powered by <a href="https://open-meteo.com" target="_blank" rel="noopener noreferrer" className="text-subway-a hover:underline">Open-Meteo</a> weather data
+        </p>
+      </footer>
     </main>
   );
 }

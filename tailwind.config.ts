@@ -6,6 +6,7 @@ const config: Config = {
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+  darkMode: 'class',
   theme: {
     extend: {
       colors: {
@@ -19,11 +20,18 @@ const config: Config = {
           g: '#6CBE45',
           j: '#996633',
           l: '#A7A9AC',
-          bg: '#0B0B0C',
-          surface: '#151517',
-          card: '#1D1D21',
-          text: '#FFFFFF',
-          muted: '#9CA3AF'
+          // Dark mode colors
+          'bg': '#0B0B0C',
+          'surface': '#151517',
+          'card': '#1D1D21',
+          'text': '#FFFFFF',
+          'muted': '#9CA3AF',
+          // Light mode colors
+          'bg-light': '#F8F9FA',
+          'surface-light': '#FFFFFF',
+          'card-light': '#F1F3F4',
+          'text-light': '#1F2937',
+          'muted-light': '#6B7280'
         }
       },
       borderRadius: {
