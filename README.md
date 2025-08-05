@@ -20,7 +20,7 @@ A smart packing list generator that uses real-time weather data to provide perso
 1. **Clone the repository**
    ```bash
    git clone <your-repo-url>
-   cd whattowear-v1
+   cd whattopack-v1
    ```
 
 2. **Install dependencies**

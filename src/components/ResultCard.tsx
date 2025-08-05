@@ -9,6 +9,12 @@ interface ResultCardProps {
   onReset: () => void;
 }
 
+// Helper function to handle pluralization
+const pluralize = (count: number, singular: string, plural?: string) => {
+  const pluralForm = plural || singular + 's';
+  return count === 1 ? singular : pluralForm;
+};
+
 export default function ResultCard({ plan, onReset }: ResultCardProps) {
   const { weather, packing, notes } = plan;
 
@@ -50,17 +56,43 @@ export default function ResultCard({ plan, onReset }: ResultCardProps) {
         <h3 className="text-h2 font-semibold text-subway-text">Your Packing List</h3>
         
         {/* Tops */}
-        <div className="flex items-center gap-3">
-          <Badge color="g">T</Badge>
-          <span className="text-subway-text font-medium">Tops</span>
-          <span className="text-subway-muted">{packing.tops} items</span>
+        <div className="space-y-2">
+          <div className="flex items-center gap-3">
+            <Badge color="g">T</Badge>
+            <span className="text-subway-text font-medium">Tops</span>
+            <span className="text-subway-muted">{packing.tops.total} items</span>
+          </div>
+          <div className="ml-10 space-y-1">
+            {packing.tops.shortSleeve > 0 && (
+              <div className="text-sm text-subway-muted">• {packing.tops.shortSleeve} {pluralize(packing.tops.shortSleeve, 'short sleeve')}</div>
+            )}
+            {packing.tops.longSleeve > 0 && (
+              <div className="text-sm text-subway-muted">• {packing.tops.longSleeve} {pluralize(packing.tops.longSleeve, 'long sleeve')}</div>
+            )}
+            {packing.tops.note && (
+              <div className="text-xs text-subway-muted italic mt-2">💡 {packing.tops.note}</div>
+            )}
+          </div>
         </div>
 
         {/* Bottoms */}
-        <div className="flex items-center gap-3">
-          <Badge color="b">B</Badge>
-          <span className="text-subway-text font-medium">Bottoms</span>
-          <span className="text-subway-muted">{packing.bottoms} items</span>
+        <div className="space-y-2">
+          <div className="flex items-center gap-3">
+            <Badge color="b">B</Badge>
+            <span className="text-subway-text font-medium">Bottoms</span>
+            <span className="text-subway-muted">{packing.bottoms.total} items</span>
+          </div>
+          <div className="ml-10 space-y-1">
+            {packing.bottoms.shorts > 0 && (
+              <div className="text-sm text-subway-muted">• {packing.bottoms.shorts} shorts</div>
+            )}
+            {packing.bottoms.pants > 0 && (
+              <div className="text-sm text-subway-muted">• {packing.bottoms.pants} pants</div>
+            )}
+            {packing.bottoms.note && (
+              <div className="text-xs text-subway-muted italic mt-2">💡 {packing.bottoms.note}</div>
+            )}
+          </div>
         </div>
 
         {/* Outerwear */}
@@ -72,7 +104,7 @@ export default function ResultCard({ plan, onReset }: ResultCardProps) {
             </div>
             <div className="ml-10 space-y-1">
               {packing.outerwear.map((item, index) => (
-                <div key={index} className="text-sm text-subway-muted">• {item}</div>
+                <div key={index} className="text-sm text-subway-muted">• {item.count} {item.name}</div>
               ))}
             </div>
           </div>
@@ -86,7 +118,7 @@ export default function ResultCard({ plan, onReset }: ResultCardProps) {
           </div>
           <div className="ml-10 space-y-1">
             {packing.footwear.map((item, index) => (
-              <div key={index} className="text-sm text-subway-muted">• {item}</div>
+              <div key={index} className="text-sm text-subway-muted">• {item.count} {item.name}</div>
             ))}
           </div>
         </div>
