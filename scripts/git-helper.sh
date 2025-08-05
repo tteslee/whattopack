@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Git Helper Script for What to Wear v1
+# Git Helper Script for What to Pack v1
 # Usage: ./scripts/git-helper.sh [command] [options]
 
 set -e

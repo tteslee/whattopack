@@ -1,6 +1,6 @@
 # Git Workflow Guide
 
-This document outlines the Git workflow and conventions used in the What to Wear v1 project.
+This document outlines the Git workflow and conventions used in the What to Pack v1 project.
 
 ## 🌿 Branching Strategy
 
