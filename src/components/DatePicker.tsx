@@ -27,9 +27,21 @@ export default function DatePicker({
   placeholder = "Select date",
   required = false
 }: DatePickerProps) {
-  // Set default min date and max date for Open-Meteo API valid range
-  const defaultMinDate = minDate || new Date('2025-05-03');
-  const defaultMaxDate = maxDate || new Date('2025-08-19');
+  // Set default min date and max date for current weather API valid range
+  const getDefaultMinDate = () => {
+    const today = new Date();
+    today.setDate(today.getDate() - 5); // Allow 5 days in the past
+    return today;
+  };
+  
+  const getDefaultMaxDate = () => {
+    const today = new Date();
+    today.setDate(today.getDate() + 16); // Allow 16 days in the future
+    return today;
+  };
+  
+  const defaultMinDate = minDate || getDefaultMinDate();
+  const defaultMaxDate = maxDate || getDefaultMaxDate();
   
   const [currentMonth, setCurrentMonth] = useState(selected || new Date());
   const [isOpen, setIsOpen] = useState(false);
