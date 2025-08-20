@@ -7,6 +7,7 @@ import Badge from './Badge';
 interface ResultCardProps {
   plan: PackingPlan;
   onReset: () => void;
+  onRefresh?: () => void;
 }
 
 // Helper function to handle pluralization
@@ -15,7 +16,7 @@ const pluralize = (count: number, singular: string, plural?: string) => {
   return count === 1 ? singular : pluralForm;
 };
 
-export default function ResultCard({ plan, onReset }: ResultCardProps) {
+export default function ResultCard({ plan, onReset, onRefresh }: ResultCardProps) {
   const { weather, packing, notes } = plan;
 
   return (
@@ -27,9 +28,20 @@ export default function ResultCard({ plan, onReset }: ResultCardProps) {
     >
       {/* Weather Summary */}
       <div className="mb-6">
-        <div className="flex items-center gap-3 mb-3">
-          <Badge color="a" size="lg">{weather.city.charAt(0).toUpperCase()}</Badge>
-          <h2 className="text-h2 font-semibold text-subway-text-light dark:text-subway-text">{weather.city}</h2>
+        <div className="flex items-center justify-between mb-3">
+          <div className="flex items-center gap-3">
+            <Badge color="a" size="lg">{weather.city.charAt(0).toUpperCase()}</Badge>
+            <h2 className="text-h2 font-semibold text-subway-text-light dark:text-subway-text">{weather.city}</h2>
+          </div>
+          {onRefresh && (
+            <button
+              onClick={onRefresh}
+              className="text-subway-a hover:text-subway-text-light dark:hover:text-subway-text transition-colors"
+              title="Refresh weather data"
+            >
+              <span className="text-lg">↻</span>
+            </button>
+          )}
         </div>
         
         <div className="bg-subway-surface-light dark:bg-subway-surface rounded-lg p-4 mb-4">

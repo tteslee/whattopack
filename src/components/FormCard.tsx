@@ -13,9 +13,24 @@ export default function FormCard() {
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<PackingPlan | null>(null);
   const [selectedTolerance, setSelectedTolerance] = useState<TemperatureTolerance>('neutral');
-  // Set default dates to work with Open-Meteo API (within valid range)
-  const [startDate, setStartDate] = useState<Date | null>(new Date('2025-08-05'));
-  const [endDate, setEndDate] = useState<Date | null>(new Date('2025-08-10'));
+  // Set default dates to current dates (within valid range)
+  const getDefaultDates = () => {
+    const today = new Date();
+    const tomorrow = new Date(today);
+    tomorrow.setDate(today.getDate() + 1);
+    const endOfWeek = new Date(today);
+    endOfWeek.setDate(today.getDate() + 5);
+    return { start: tomorrow, end: endOfWeek };
+  };
+
+  const [startDate, setStartDate] = useState<Date | null>(getDefaultDates().start);
+  const [endDate, setEndDate] = useState<Date | null>(getDefaultDates().end);
+
+  const refreshDates = () => {
+    const newDates = getDefaultDates();
+    setStartDate(newDates.start);
+    setEndDate(newDates.end);
+  };
 
   const handleSubmit = async (formData: FormData) => {
     setIsLoading(true);
@@ -55,7 +70,14 @@ export default function FormCard() {
   }
 
   if (result) {
-    return <ResultCard plan={result} onReset={() => setResult(null)} />;
+    return <ResultCard 
+      plan={result} 
+      onReset={() => setResult(null)} 
+      onRefresh={() => {
+        setResult(null);
+        refreshDates();
+      }}
+    />;
   }
 
   return (
@@ -107,9 +129,19 @@ export default function FormCard() {
           />
         </div>
         
-        <p className="text-xs text-subway-muted-light dark:text-subway-muted text-center">
-          Weather data available for dates between May 3 - August 19, 2025
-        </p>
+        <div className="flex items-center justify-between">
+          <p className="text-xs text-subway-muted-light dark:text-subway-muted">
+            Weather data available for next 16 days
+          </p>
+          <button
+            type="button"
+            onClick={refreshDates}
+            className="text-xs text-subway-a hover:underline flex items-center gap-1"
+          >
+            <span className="text-sm">↻</span>
+            Refresh dates
+          </button>
+        </div>
 
         {/* Temperature Tolerance */}
         <div>

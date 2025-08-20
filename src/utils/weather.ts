@@ -55,15 +55,17 @@ export async function getWeatherData(city: string, startDate: string, endDate: s
       throw new Error(`Could not find coordinates for "${city}"`);
     }
     
-    // Check if dates are within Open-Meteo's allowed range (current limitation)
+    // Check if dates are within Open-Meteo's allowed range
     const start = new Date(startDate);
     const end = new Date(endDate);
     const now = new Date();
-    const minDate = new Date('2025-05-03'); // Open-Meteo's minimum date
-    const maxDate = new Date('2025-08-19'); // Open-Meteo's maximum date
+    const minDate = new Date();
+    minDate.setDate(now.getDate() - 5); // Allow 5 days in the past
+    const maxDate = new Date();
+    maxDate.setDate(now.getDate() + 16); // Allow 16 days in the future (Open-Meteo limit)
     
     if (start < minDate || end > maxDate) {
-      throw new Error(`Weather forecast is only available for dates between May 3, 2025 and August 19, 2025. Please adjust your travel dates.`);
+      throw new Error(`Weather forecast is only available for dates within the next 16 days. Please adjust your travel dates.`);
     }
     
     // Fetch weather data from Open-Meteo
