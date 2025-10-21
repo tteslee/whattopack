@@ -55,17 +55,21 @@ export async function getWeatherData(city: string, startDate: string, endDate: s
       throw new Error(`Could not find coordinates for "${city}"`);
     }
     
-    // Check if dates are within Open-Meteo's allowed range
+    // Check if dates are within Open-Meteo's allowed range (16 days forecast limit)
     const start = new Date(startDate);
     const end = new Date(endDate);
     const now = new Date();
-    const minDate = new Date();
-    minDate.setDate(now.getDate() - 5); // Allow 5 days in the past
-    const maxDate = new Date();
-    maxDate.setDate(now.getDate() + 16); // Allow 16 days in the future (Open-Meteo limit)
+    now.setHours(0, 0, 0, 0); // Reset time to start of day
     
-    if (start < minDate || end > maxDate) {
-      throw new Error(`Weather forecast is only available for dates within the next 16 days. Please adjust your travel dates.`);
+    const maxForecastDate = new Date(now);
+    maxForecastDate.setDate(now.getDate() + 16); // 16 days from today
+    
+    if (start < now) {
+      throw new Error(`Start date cannot be in the past. Please select a date from today onwards.`);
+    }
+    
+    if (end > maxForecastDate) {
+      throw new Error(`Weather forecast is only available for the next 16 days. Please adjust your end date to be within ${maxForecastDate.toLocaleDateString()}.`);
     }
     
     // Fetch weather data from Open-Meteo

@@ -11,30 +11,36 @@ interface ThemeContextType {
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
-// Get initial theme from localStorage synchronously to prevent flash
-const getInitialTheme = (): Theme => {
-  if (typeof window !== 'undefined') {
-    const savedTheme = localStorage.getItem('theme') as Theme;
-    if (savedTheme) {
-      return savedTheme;
-    }
-  }
-  return 'dark';
-};
-
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setTheme] = useState<Theme>(getInitialTheme);
+  // Initialize with a default theme to prevent hydration mismatch
+  const [theme, setTheme] = useState<Theme>('dark');
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    // Update document class and save to localStorage
+    // Set mounted to true after component mounts
+    setMounted(true);
+    
+    // Get theme from localStorage after mounting
+    const savedTheme = localStorage.getItem('theme') as Theme;
+    if (savedTheme) {
+      setTheme(savedTheme);
+    }
+  }, []);
+
+  useEffect(() => {
+    // Always update document class when theme changes
     // For Tailwind dark mode: add 'dark' class for dark theme, remove for light theme
     if (theme === 'dark') {
       document.documentElement.classList.add('dark');
     } else {
       document.documentElement.classList.remove('dark');
     }
-    localStorage.setItem('theme', theme);
-  }, [theme]);
+    
+    // Only save to localStorage after mounting to prevent hydration issues
+    if (mounted) {
+      localStorage.setItem('theme', theme);
+    }
+  }, [theme, mounted]);
 
   const toggleTheme = () => {
     setTheme(prev => prev === 'dark' ? 'light' : 'dark');

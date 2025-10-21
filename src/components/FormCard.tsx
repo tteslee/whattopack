@@ -16,10 +16,14 @@ export default function FormCard() {
   // Set default dates to current dates (within valid range)
   const getDefaultDates = () => {
     const today = new Date();
+    today.setHours(0, 0, 0, 0); // Reset time to start of day
+    
     const tomorrow = new Date(today);
     tomorrow.setDate(today.getDate() + 1);
+    
     const endOfWeek = new Date(today);
     endOfWeek.setDate(today.getDate() + 5);
+    
     return { start: tomorrow, end: endOfWeek };
   };
 
